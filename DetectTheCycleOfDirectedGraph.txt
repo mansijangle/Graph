@@ -1,0 +1,54 @@
+Cycle in a Directed Graph
+Difficulty: MediumAccuracy: 27.88%Submissions: 438K+Points: 4
+Given a Directed Graph with V vertices (Numbered from 0 to V-1) and E edges, check whether it contains any cycle or not.
+The graph is represented as an adjacency list, where adj[i] contains a list of vertices that are directly reachable from vertex i. Specifically, adj[i][j] represents an edge from vertex i to vertex j.
+
+
+
+/*Complete the function below*/
+
+class Solution {
+    // Function to detect cycle in a directed graph.
+    public boolean dfs(int start,ArrayList<ArrayList<Integer>> adj,int[] vis, int[] pathvis ){
+        
+        vis[start] = 1;
+        pathvis[start] = 1;
+        for(int  i : adj.get(start)){
+            
+            if(vis[i]==0){
+                if(dfs(i,adj,vis,pathvis)==true){
+                    return true;
+                }
+            }
+            else if(pathvis[i]==1){
+                    return true;
+            }
+            
+        }
+        pathvis[start] = 0;
+        
+        
+        return false;
+    }
+    public boolean isCyclic(int v, ArrayList<ArrayList<Integer>> adj) {
+        // code here
+        
+        int vis[] = new int[v];
+        int pathvis[] = new int[v];
+        
+        for(int i = 0; i<v; i++){
+            
+            if(vis[i]==0){
+                
+                if(dfs(i,adj,vis,pathvis)==true){
+                    return true;
+                }
+            }
+        }
+        
+        
+        
+        return false;
+    }
+    
+  }
